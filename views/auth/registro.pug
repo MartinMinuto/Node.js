@@ -17,11 +17,16 @@ block contenido
                         label.block.text-sm.uppercase.text-gray-500.mb-3.font-bold(for="email") Email
                         input#email.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400
                         (placeholder="Email" type="email" name="email") 
-                     div 
+                    div 
                         label.block.text-sm.uppercase.text-gray-500.mb-3.font-bold(for="password") Password
                         input#password.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400
                         (placeholder="Password" type="password" name="password")
-                     div 
+                    div 
                         label.block.text-sm.uppercase.text-gray-500.mb-3.font-bold(for="repetir_password") Repetir Password
                         input#repetir_password.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400
-                        (placeholder="Repetir Password" type="password" name="repetir_password")                   
+                        (placeholder="Repetir Password" type="password" name="repetir_password")   
+                    div.flex.items-center.justify-betwen
+                        a.text-gray-500.text-xs(href="/auth/login") ¿Ya tienes cuenta? Iniciar Sesión
+                        a.text-gray-500.text-xs(href="/auth/olvide-password") Olvide mi contraseña
+
+                    input( class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer"  type="submit" value="Crear Cuenta")    
