@@ -28,12 +28,28 @@ const registrar = async (req, res) => {
             nombre: req.body.nombre,
             email: req.body.email,
         }
-      })
+    })
    }
 
-   const usuario = await Usuario.create(req.body)
-   res.json(usuario)
-}
+   const existeUsuario = await Usuario.findOne({where:{email: req.body.email}})
+   if(existeUsuario) {
+        return res.render('auth/registro', {
+            pagina: 'Crear Cuenta',
+            errores: [{msg: 'El usuario ya esta registrado'}],
+            usuario: {
+                nombre: req.body.nombre,
+                email: req.body.email,
+            }
+        })
+    }
+
+   await Usuario.create({
+        nombre,
+        email,
+        password,
+        token: 123
+   })
+}   
 
 const formularioOlvidePassword = (req, res) => {
     res.render('auth/olvide-password', {
