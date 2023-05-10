@@ -107,6 +107,28 @@ const resetPassword = async (req,res) => {
         errores: resultado.array()
       })
     }
+
+    const {email} = req.body
+    const usuario = await Usuario.findOne({where:{email}})
+    if(!usuario){
+        return res.render('auth/olvide-password', {
+         pagina: 'Recupera tu acceso a BienesRaices',
+         csrfToken: req.csrfToken(),
+         errores: [{msg:'El email no pertenece a ningun usuario'}]
+      })
+    }
+
+    usuario.token = generarId();
+    await usuario.save();
+
+}   
+
+const comprobarToken = (req,res) => {
+
+}
+
+const nuevoPassword = (req,res) => {
+    
 }
 
 export {
@@ -115,5 +137,7 @@ export {
     registrar,
     confirmar,
     formularioOlvidePassword,
-    resetPassword
+    resetPassword,
+    comprobarToken,
+    nuevoPassword
 }
