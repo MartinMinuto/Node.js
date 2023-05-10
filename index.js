@@ -21,7 +21,7 @@ app.use(express.static('public'))
 app.set('view engine', 'pug')
 app.set('views', './views')
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
  console.log(`El servidor esta funcionando en el puerto ${port}`)
 })

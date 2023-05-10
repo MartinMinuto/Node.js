@@ -1,6 +1,7 @@
 import { check, validationResult } from 'express-validator'
 import Usuario from '../model/Usuario.js'
 import { generarId } from '../helpers/tokens.js'
+import { emailRegistro } from '../helpers/emails.js'
 
 const formularioLogin = (req, res) => {
     res.render('auth/login', {
@@ -44,11 +45,17 @@ const registrar = async (req, res) => {
         })
     }
 
-   await Usuario.create({
+   const usuario = await Usuario.create({
         nombre,
         email,
         password,
         token: generarId()
+   })
+
+   emailRegistro({
+    nombre: usuario.nombre,
+    email: usuario.email,
+    token: usuario.token
    })
 
    res.render('templates/mensaje', {
@@ -57,6 +64,12 @@ const registrar = async (req, res) => {
    })
 
 }   
+
+const confirmar = (req, res, next) => {
+    const { token } = req.params;
+
+    next()
+}
 
 const formularioOlvidePassword = (req, res) => {
     res.render('auth/olvide-password', {
@@ -68,5 +81,6 @@ export {
     formularioLogin,
     formularioRegistro,
     registrar,
+    confirmar,
     formularioOlvidePassword
 }
