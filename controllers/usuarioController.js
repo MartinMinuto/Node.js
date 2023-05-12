@@ -11,6 +11,22 @@ const formularioLogin = (req, res) => {
     })
 }
 
+const autenticar = async (req, res) => {
+    await check('email').isEmail().withMessage('Este email es Obligatorio!').run(req)
+    await check('password').notEmpty().withMessage('La contraseña es Obligatoria!').run(req)
+
+    let resultado = validationResult(req)
+
+    if(!resultado.isEmpty()){
+       return res.render('auth/login', {
+         pagina: 'Iniciar Sesion',
+         csrfToken: req.csrfToken(),
+         errores: resultado.array()
+     })
+    }
+
+}
+
 const formularioRegistro = (req, res) => {
     res.render('auth/registro', {
         pagina: 'Crear Cuenta',
@@ -187,6 +203,7 @@ const nuevoPassword = async (req,res) => {
 
 export {
     formularioLogin,
+    autenticar,
     formularioRegistro,
     registrar,
     confirmar,
