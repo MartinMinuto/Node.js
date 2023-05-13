@@ -1,7 +1,8 @@
 import { check, validationResult } from 'express-validator'
+import  jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import Usuario from '../model/Usuario.js'
-import { generarId } from '../helpers/tokens.js'
+import { generarId, generarJWT } from '../helpers/tokens.js'
 import { emailRegistro, emailOlvidePassword } from '../helpers/emails.js'
 
 const formularioLogin = (req, res) => {
@@ -24,6 +25,35 @@ const autenticar = async (req, res) => {
          errores: resultado.array()
      })
     }
+
+    const { email, password} = req.body
+
+    const usuario = await Usuario.findOne({where:{email}})
+    if(!usuario) {
+        return res.render('auth/login', {
+            pagina: 'Iniciar Sesion',
+            csrfToken: req.csrfToken(),
+            errores: [{msg: 'El usuario no existe!'}]
+        })
+    }
+
+    if(!usuario.confirmado) {
+        return res.render('auth/login', {
+            pagina: 'Iniciar Sesion',
+            csrfToken: req.csrfToken(),
+            errores: [{msg: 'Tu cuenta no ha sido confirmada!'}]
+        })
+    }
+
+    if(!usuario.verificarPassword(password)) {
+        return res.render('auth/login', {
+            pagina: 'Iniciar Sesion',
+            csrfToken: req.csrfToken(),
+            errores: [{msg: 'La contraseña es Incorrecta!'}]
+        })
+    }
+
+    const token = generarJWT(usuario.id)
 
 }
 
