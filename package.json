@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
-    "css": "postcss public/css/tailwind.css -o public/css/app.css --watch"
+    "css": "postcss public/css/tailwind.css -o public/css/app.css --watch",
+    "js": "webpack --watch"
   },
   "author": "",
   "license": "ISC",
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
+    "concurrently": "^8.0.1",
     "nodemon": "^2.0.22",
     "postcss": "^8.4.23",
     "postcss-cli": "^10.1.0",
