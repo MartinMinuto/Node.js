@@ -3,6 +3,8 @@
     const lng = -58.4823779;
     const mapa = L.map('mapa').setView([lat, lng ], 15);
     let marker;
+
+    const geocodeService = L.esri.Geocoding.geocodeService()
     
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -20,6 +22,15 @@
 
         const posicion = marker.getLatLng()
         mapa.panTo(new L.LatLng(posicion.lat, posicion.lng))
+
+        geocodeService.reverse().LatLng(posicion, 13).run(function(error, resultado) {
+            marker.bindPopup(resultado.address.LongLabel)
+
+            document.querySelector(".calle").textContent = resultado?.address?.Address ?? "";
+            document.querySelector("#calle").value = resultado?.address?.Address ?? "";
+            document.querySelector("#lat").value = resultado?.LatLng?.lat ?? "";
+            document.querySelector("#lng").value = resultado?.LatLng?.lng ?? "";
+        })
     })
 
 
