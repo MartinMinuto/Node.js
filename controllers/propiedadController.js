@@ -18,6 +18,7 @@ const crear = async (req,res) => {
     res.render('propiedades/crear', {
         pagina: 'Crear Propiedad',
         barra: true,
+        csrfToken: req.csrfToken(),
         categorias,
         precios
     })
@@ -35,6 +36,7 @@ const guardar = async (req, res) => {
         return res.render('propiedades/crear', {
             pagina: 'Crear Propiedad',
             barra: true,
+            csrfToken: req.csrfToken(),
             categorias,
             precios,
             errores: resultado.array()
