@@ -46,6 +46,8 @@ const guardar = async (req, res) => {
 
     const { titulo, descripcion, habitaciones, estacionamiento, wc, calle, lat, lng, precio:precioId, categorias:categoriasId } = req.body
 
+    
+
     try{    
        const propiedadGuardada = await Propiedad.create({
             titulo,
