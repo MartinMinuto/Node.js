@@ -3,8 +3,7 @@ import { Categorias, Precio, Propiedad } from '../model/index.js'
 
 const admin =  (req, res) => {
     res.render('propiedades/admin', {
-        pagina: 'Mis Propiedades',
-        barra: true
+        pagina: 'Mis Propiedades'
     })
 }
 
@@ -16,7 +15,6 @@ const crear = async (req,res) => {
 
     res.render('propiedades/crear', {
         pagina: 'Crear Propiedad',
-        barra: true,
         csrfToken: req.csrfToken(),
         categorias,
         precios,
@@ -35,7 +33,6 @@ const guardar = async (req, res) => {
 
         return res.render('propiedades/crear', {
             pagina: 'Crear Propiedad',
-            barra: true,
             csrfToken: req.csrfToken(),
             categorias,
             precios,
@@ -46,7 +43,7 @@ const guardar = async (req, res) => {
 
     const { titulo, descripcion, habitaciones, estacionamiento, wc, calle, lat, lng, precio:precioId, categorias:categoriasId } = req.body
 
-    
+    const {id: usuarioId} = req.usuario
 
     try{    
        const propiedadGuardada = await Propiedad.create({
@@ -59,16 +56,30 @@ const guardar = async (req, res) => {
             lat,
             lng, 
             precioId,
-            categoriasId
+            categoriasId,
+            usuarioId,
+            imagen: ''
        }) 
+
+       const { id } = propiedadGuardada
+
+       res.redirect(`/propiedades/agregar-imagen/${id}`)
+
     } catch (error) {
 
     }
 
 }
 
+const agregarImagen = async (req, res) => {
+    res.render('/propiedades/agregar-imagen', {
+
+    })
+}
+
 export  {
     admin,
     crear,
-    guardar
+    guardar,
+    agregarImagen
 }
