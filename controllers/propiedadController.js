@@ -84,11 +84,15 @@ const agregarImagen = async (req, res) => {
         return res.redirect('/mis-propiedades')
     }
 
-    
+    if( req.usuario.id.toString() !== propiedad.usuarioId.toString()){
+        return res.redirect('/mis-propiedades')
+    }
 
 
     res.render('/propiedades/agregar-imagen', {
-        pagina: 'Agregar Imagen'
+        pagina: `Agregar Imagen: ${propiedad.titulo}`,
+        csrfToken: req.csrfToken(),
+        propiedad
     })
 }
 
