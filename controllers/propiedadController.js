@@ -113,6 +113,21 @@ const almacenarImagen = async (req,res) => {
         return res.redirect('/mis-propiedades')
     }
 
+    try{
+        
+        console.log(req.file)
+
+        propiedad.imagen = req.file.filename
+        propiedad.publicado = 1
+
+        await propiedad.save()
+
+        res.redirect('/mis-propiedades')
+
+    } catch(error) {
+        console.log(error)
+    }
+
 }
 
 export  {
