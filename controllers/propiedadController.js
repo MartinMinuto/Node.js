@@ -96,9 +96,29 @@ const agregarImagen = async (req, res) => {
     })
 }
 
+const almacenarImagen = async (req,res) => {
+
+    const { id } = req.params
+
+    const propiedad = await Propiedad.findByPk(id)
+    if(!propiedad) {
+        return res.redirect('/mis-propiedades')
+    }
+
+    if(propiedad.publicado){
+        return res.redirect('/mis-propiedades')
+    }
+
+    if( req.usuario.id.toString() !== propiedad.usuarioId.toString()){
+        return res.redirect('/mis-propiedades')
+    }
+
+}
+
 export  {
     admin,
     crear,
     guardar,
-    agregarImagen
+    agregarImagen,
+    almacenarImagen
 }
