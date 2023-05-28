@@ -1,5 +1,4 @@
 import { check, validationResult } from 'express-validator'
-import  jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import Usuario from '../model/Usuario.js'
 import { generarId, generarJWT } from '../helpers/tokens.js'
@@ -71,7 +70,7 @@ const formularioRegistro = (req, res) => {
 const registrar = async (req, res) => {
    await check('nombre').notEmpty().withMessage('Este campo no puede ir vacio!').run(req)
    await check('email').isEmail().withMessage('Este campo no puede ir vacio!').run(req)
-   await check('password').isLength({min: 6}).withMessage('La contraseña debe tener 6 caracteres como minimo').run(req)
+   await check('password').isLength({min:6}).withMessage('La contraseña debe tener 6 caracteres como minimo').run(req)
    await check('repetir_password').equals('password').withMessage('La contraseña no es la misma').run(req)
    let resultado = validationResult(req)
 
