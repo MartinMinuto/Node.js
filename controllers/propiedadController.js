@@ -3,7 +3,7 @@ import { Categorias, Precio, Propiedad } from '../model/index.js'
 
 const admin = async (req, res) => {
 
-    const {id} = req.usuario
+    const { id } = req.usuario
 
     const propiedades = await Propiedad.findAll({
         where: {
@@ -12,6 +12,9 @@ const admin = async (req, res) => {
         include: [
             {
                 model: Categorias, as: 'categoria'
+            },
+            {
+                model: Precio, as: 'precio'
             }
         ]
     })
