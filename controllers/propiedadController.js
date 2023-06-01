@@ -176,11 +176,48 @@ const editar = async (req, res) => {
     })
 }
 
+const guardarCambios = async (req, res) => {
+
+    let resultado = validationResult(req)
+    if(!resultado.isEmpty()) {
+
+        const [categorias, precios] = await Promise.all([
+            Categorias.findAll(),
+            Precio.findAll()
+        ])
+
+        return res.render('propiedades/crear', {
+            pagina: 'Crear Propiedad',
+            csrfToken: req.csrfToken(),
+            categorias,
+            precios,
+            errores: resultado.array(),
+            datos: req.body
+        })
+    }
+
+    const { id } = req.params
+
+    const propiedad = await Propiedad.findByPk(id)
+
+    if(!propiedad){
+        return res.redirect('/mis-propiedades')
+    }
+
+    if(propiedad.usuarioId.toString() !== req.usuario.id.toString()) {
+        return res.redirect('/mis-propiedades')
+    }
+
+    
+
+} 
+
 export  {
     admin,
     crear,
     guardar,
     agregarImagen,
     almacenarImagen,
-    editar
+    editar,
+    guardarCambios
 }
