@@ -168,7 +168,7 @@ const editar = async (req, res) => {
     ])
 
     res.render('propiedades/editar', {
-        pagina: 'Editar Propiedad',
+        pagina: `Editar ${propiedad.titulo}`,
         csrfToken: req.csrfToken(),
         categorias,
         precios,
@@ -186,8 +186,8 @@ const guardarCambios = async (req, res) => {
             Precio.findAll()
         ])
 
-        return res.render('propiedades/crear', {
-            pagina: 'Crear Propiedad',
+        return res.render('propiedades/editar', {
+            pagina: 'Editar Propiedad',
             csrfToken: req.csrfToken(),
             categorias,
             precios,
