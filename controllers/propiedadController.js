@@ -3,7 +3,7 @@ import { Categorias, Precio, Propiedad } from '../model/index.js'
 
 const admin = async (req, res) => {
 
-    const { id } = req.usuario
+    const {id} = req.usuario
 
     const propiedades = await Propiedad.findAll({
         where: {
@@ -172,7 +172,7 @@ const editar = async (req, res) => {
         csrfToken: req.csrfToken(),
         categorias,
         precios,
-        datos: {}
+        datos: propiedad
     })
 }
 
