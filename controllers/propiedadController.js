@@ -208,7 +208,29 @@ const guardarCambios = async (req, res) => {
         return res.redirect('/mis-propiedades')
     }
 
+    try {
+        const { titulo, descripcion, habitaciones, estacionamiento, wc, calle, lat, lng, precio:precioId, categorias:categoriasId } = req.body
     
+        propiedad.set({
+           titulo,
+           descripcion,
+           habitaciones,
+           estacionamiento,
+           wc,
+           calle,
+           lat,
+           lng,
+           precioId,
+           categoriasId 
+        })
+
+        await propiedad.save()
+
+        res.redirect('/mis-propiedades')
+
+    } catch(error) {
+        console.log(error)
+    }
 
 } 
 
