@@ -234,6 +234,10 @@ const guardarCambios = async (req, res) => {
 
 } 
 
+const eliminar = async (req, res) => {
+     console.log('Eliimnando!')
+}
+
 export  {
     admin,
     crear,
@@ -241,5 +245,6 @@ export  {
     agregarImagen,
     almacenarImagen,
     editar,
-    guardarCambios
+    guardarCambios,
+    eliminar
 }
