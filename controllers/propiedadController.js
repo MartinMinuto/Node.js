@@ -1,3 +1,4 @@
+import { unlink } from 'node:fs/promises'
 import { validationResult } from 'express-validator'
 import { Categorias, Precio, Propiedad } from '../model/index.js'
 
@@ -249,7 +250,8 @@ const eliminar = async (req, res) => {
         return res.redirect('/mis-propiedades')
     }
 
-    
+    await unlink(`public/uploads/${propiedad.imagen}`)
+    console.log(`Se elimino la imagen ${propiedad.imagen}`)
 
     await propiedad.destroy()
     res.redirect('/mis-propiedades')
