@@ -236,7 +236,23 @@ const guardarCambios = async (req, res) => {
 } 
 
 const eliminar = async (req, res) => {
-     console.log('Eliimnando!')
+     
+    const { id } = req.params
+
+    const propiedad = await Propiedad.findByPk(id)
+
+    if(!propiedad){
+        return res.redirect('/mis-propiedades')
+    }
+
+    if(propiedad.usuarioId.toString() !== req.usuario.id.toString()) {
+        return res.redirect('/mis-propiedades')
+    }
+
+    
+
+    await propiedad.destroy()
+    res.redirect('/mis-propiedades')
 }
 
 export  {
