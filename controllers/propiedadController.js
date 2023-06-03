@@ -257,6 +257,14 @@ const eliminar = async (req, res) => {
     res.redirect('/mis-propiedades')
 }
 
+const mostrarPropiedad = async (req,res) => {
+
+    res.render('propiedades/mostrar', {
+        
+    })
+
+}
+
 export  {
     admin,
     crear,
@@ -265,5 +273,6 @@ export  {
     almacenarImagen,
     editar,
     guardarCambios,
-    eliminar
+    eliminar,
+    mostrarPropiedad
 }
