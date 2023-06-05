@@ -259,8 +259,21 @@ const eliminar = async (req, res) => {
 
 const mostrarPropiedad = async (req,res) => {
 
+    const {id} = req.params
+
+    const propiedad = await Propiedad.findByPk(id, {
+        include: [
+            {model: Precio, as:'precio'},
+            {model: Categorias, as: 'categoria'},
+        ]
+    })
+
+    if(!propiedad){
+        return res.redirect('/404')
+    }
     res.render('propiedades/mostrar', {
-        
+        propiedad,
+        pagina: propiedad.titulo
     })
 
 }
