@@ -1,6 +1,7 @@
 (function(){
   const lat = document.querySelector('#lat').textContent
   const lng = document.querySelector('#lng').textContent
+  const calle = document.querySelector('#calle').textContent
   const mapa = L.map('mapa').setView([lat,lng], 16)
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -9,5 +10,6 @@
 
     L.marker([lat, lng])
         .addTo(mapa)
+        .bindPopup(calle)
 
 })()
