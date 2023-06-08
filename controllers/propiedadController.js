@@ -5,7 +5,7 @@ import { Categorias, Precio, Propiedad } from '../model/index.js'
 const admin = async (req, res) => {
 
     const { pagina: paginaActual } = req.query
-    const expresion = /^[0-9]$/
+    const expresion = /^[1-9]$/
     if(!expresion.test(paginaActual)) {
         return res.redirect('/mis-propiedades?pagina=1')
     }
