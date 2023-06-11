@@ -1,7 +1,9 @@
 
 
 const inicio = (req,res) => {
-
+    res.render('inicio', {
+        pagina: 'Inicio'
+    })
 }
 
 const categoria = (req,res) => {

@@ -6,7 +6,7 @@ const catergorias = [
         nombre: 'Departamento'
     },
     {
-        nombre: 'Deposito'
+        nombre: 'Bodega'
     },
     {
         nombre: 'Terreno'
