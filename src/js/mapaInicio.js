@@ -27,6 +27,8 @@
             })
             .addTo(mapa)
             .bindPopup('informacion')
+
+            markers.addLayer(marker)
         })
     }
 
