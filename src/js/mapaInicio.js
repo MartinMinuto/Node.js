@@ -21,12 +21,18 @@
     }
 
     const mostrarPropiedades = propiedades => {
+        console.log(propiedades)
         propiedades.forEach(propiedad => {
             const marker = new L.marker([propiedad?.lat, propiedad?.lng], {
                 autoPan: true
             })
             .addTo(mapa)
-            .bindPopup('informacion')
+            .bindPopup(`
+                <h1 class="text-xl font-extrabold uppercase my-5">${propiedad?.titulo}</h1>
+                <img src="/uploads/${propiedad?.imagen}" alt="Imagen de la propiedad ${propiedad.titulo}">
+                <p class="text-gray-600 font-bold">${propiedad.precio.nombre}</p>
+                <p class="text-indigo-600 font-bold">${propiedad.categoria.nombre}</p>
+            `)
 
             markers.addLayer(marker)
         })
