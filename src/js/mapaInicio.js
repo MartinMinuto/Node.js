@@ -41,7 +41,9 @@
     }
 
     const mostrarPropiedades = propiedades => {
-        console.log(propiedades)
+        
+        markers.clearLayers()
+
         propiedades.forEach(propiedad => {
             const marker = new L.marker([propiedad?.lat, propiedad?.lng], {
                 autoPan: true
@@ -60,10 +62,13 @@
     }
 
     const filtrarPropiedades = () => {
-        const resultado = propiedades.filter(filtrarCategoria)
+        const resultado = propiedades.filter(filtrarCategoria).filter( filtrarPrecio )
+        mostrarPropiedades(resultado)
     }
 
     const filtrarCategoria = propiedad => filtros.categoria ? propiedad.categoriaId === filtros.categoria : propiedad
+
+    const filtrarPrecio = propiedad => filtros.precio ? propiedad.precioId === filtros.precio : propiedad
     
 
     obtenerPropiedades()
