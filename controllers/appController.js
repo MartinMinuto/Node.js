@@ -46,8 +46,27 @@ const inicio = async (req,res) => {
     })
 }
 
-const categoria = (req,res) => {
-    
+const categoria = async (req,res) => {
+    const { id } = req.params
+
+    const categoria = await Categorias.findByPk(id)
+    if(!categoria) {
+        return res.redirec('/404')
+    }
+
+    const propiedades = await Propiedad.findaAll({
+        where: {
+            categoriaId: id
+        },
+        include: [
+            {model: Precio, as: 'precio'}
+        ]
+    })
+
+    res.render('categoria', {
+        pagina: 'Categoria',
+        propiedades
+    })
 }
 
 const noEncontrado = (req,res) => {
