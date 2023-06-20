@@ -64,13 +64,15 @@ const categoria = async (req,res) => {
     })
 
     res.render('categoria', {
-        pagina: 'Categoria',
+        pagina: `${categoria.nombre}s en Venta`,
         propiedades
     })
 }
 
 const noEncontrado = (req,res) => {
-
+    res.render('404', {
+        pagina: 'No encontrado'
+    })
 }
 
 const buscador = (req,res) => {
