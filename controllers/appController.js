@@ -1,4 +1,5 @@
 import { Precio, Categorias, Propiedad } from '../model/index.js'
+import { Sequelize } from 'sequelize'
 
 const inicio = async (req,res) => {
 
@@ -78,8 +79,29 @@ const noEncontrado = (req,res) => {
     })
 }
 
-const buscador = (req,res) => {
-    
+const buscador = async (req,res) => {
+    const { termino } = req.body
+
+    if(!termino.trim()) {
+        return res.redirect('back')
+    }
+
+    const propiedades = await Propiedad.findAll({
+        where: {
+            titulo: {
+                [Sequelize.Op.like] : '%' + termino + '%'
+            }
+        },
+        include: [
+            {model: Precio, as: 'precio'}
+        ]
+    })
+
+    res.render('busqueda', {
+        pagina: 'Resultados de la Busqueda',
+        propiedades,
+        csrfToken: req.csrfToken()
+    })
 }
 
 export {
