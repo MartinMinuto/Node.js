@@ -288,8 +288,6 @@ const mostrarPropiedad = async (req,res) => {
 
     const {id} = req.params
 
-    console.log(req.usuario)
-
     const propiedad = await Propiedad.findByPk(id, {
         include: [
             {model: Precio, as:'precio'},
@@ -312,6 +310,44 @@ const mostrarPropiedad = async (req,res) => {
 
 }
 
+const enviarMensaje = async (req,res) => {
+
+    const {id} = req.params
+
+    const propiedad = await Propiedad.findByPk(id, {
+        include: [
+            {model: Precio, as:'precio'},
+            {model: Categorias, as: 'categoria'},
+        ]
+    })
+
+    if(!propiedad){
+        return res.redirect('/404')
+    }
+
+    let resultado = validationResult(req)
+    if(!resultado.isEmpty()) {
+        return res.render('propiedades/mostrar', {
+            propiedad,
+            pagina: propiedad.titulo,
+            csrfToken: req.csrfToken(),
+            usuario: req.usuario,
+            esVendedor: esVendedor(req.usuario?.id, propiedad.usuarioId),
+            errores: resultado.array()
+        })
+    } 
+
+    res.render('propiedades/mostrar', {
+        propiedad,
+        pagina: propiedad.titulo,
+        csrfToken: req.csrfToken(),
+        usuario: req.usuario,
+        esVendedor: esVendedor(req.usuario?.id, propiedad.usuarioId)
+    })
+
+
+}
+
 export  {
     admin,
     crear,
@@ -321,5 +357,6 @@ export  {
     editar,
     guardarCambios,
     eliminar,
-    mostrarPropiedad
+    mostrarPropiedad,
+    enviarMensaje
 }
