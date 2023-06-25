@@ -1,6 +1,6 @@
 import { unlink } from 'node:fs/promises'
 import { validationResult } from 'express-validator'
-import { Categorias, Precio, Propiedad } from '../model/index.js'
+import { Categorias, Precio, Propiedad, Mensaje } from '../model/index.js'
 import { esVendedor } from '../helpers/index.js'
 
 const admin = async (req, res) => {
@@ -337,12 +337,23 @@ const enviarMensaje = async (req,res) => {
         })
     } 
 
+    const { mensaje } = req.body
+    const { id: propiedadId } = req.params
+    const { id: usuarioId } = req.usuario
+
+    await Mensaje.create({
+        mensaje,
+        propiedadId,
+        usuarioId
+    })
+
     res.render('propiedades/mostrar', {
         propiedad,
         pagina: propiedad.titulo,
         csrfToken: req.csrfToken(),
         usuario: req.usuario,
-        esVendedor: esVendedor(req.usuario?.id, propiedad.usuarioId)
+        esVendedor: esVendedor(req.usuario?.id, propiedad.usuarioId),
+        enviado: true
     })
 
 
