@@ -301,13 +301,13 @@ const mostrarPropiedad = async (req,res) => {
         return res.redirect('/404')
     }
 
-    console.log(esVendedor(req.usuario.id, propiedad.usuarioId))
 
     res.render('propiedades/mostrar', {
         propiedad,
         pagina: propiedad.titulo,
         csrfToken: req.csrfToken(),
-        usuario: req.usuario
+        usuario: req.usuario,
+        esVendedor: esVendedor(req.usuario?.id, propiedad.usuarioId)
     })
 
 }
