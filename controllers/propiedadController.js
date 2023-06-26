@@ -26,7 +26,8 @@ const admin = async (req, res) => {
                 },
                 include: [
                     { model: Categorias, as: 'categoria' },
-                    { model: Precio, as: 'precio' }
+                    { model: Precio, as: 'precio' },
+                    { model: Mensaje, as: 'mensajes'}
                 ],
             }),
             Propiedad.count({
@@ -347,16 +348,12 @@ const enviarMensaje = async (req,res) => {
         usuarioId
     })
 
-    res.render('propiedades/mostrar', {
-        propiedad,
-        pagina: propiedad.titulo,
-        csrfToken: req.csrfToken(),
-        usuario: req.usuario,
-        esVendedor: esVendedor(req.usuario?.id, propiedad.usuarioId),
-        enviado: true
-    })
+    res.redirect('/')
 
+}
 
+const verMensajes = async (req, res) => {
+    res.send('Mensajes aqui')
 }
 
 export  {
@@ -369,5 +366,6 @@ export  {
     guardarCambios,
     eliminar,
     mostrarPropiedad,
-    enviarMensaje
+    enviarMensaje,
+    verMensajes
 }
