@@ -353,7 +353,27 @@ const enviarMensaje = async (req,res) => {
 }
 
 const verMensajes = async (req, res) => {
-    res.send('Mensajes aqui')
+
+    const { id } = req.params
+
+    const propiedad = await Propiedad.findByPk(id, {
+        include: [
+            { model: Mensaje, as: 'mensajes'}
+        ],
+    })
+
+    if(!propiedad){
+        return res.redirect('/mis-propiedades')
+    }
+
+    if(propiedad.usuarioId.toString() !== req.usuario.id.toString()) {
+        return res.redirect('/mis-propiedades')
+    }
+
+    res.render('propiedades/mensajes', {
+        pagina: 'Mensajes',
+        mensajes: propiedad.mensajes
+    })
 }
 
 export  {
