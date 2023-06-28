@@ -1,7 +1,7 @@
 import { unlink } from 'node:fs/promises'
 import { validationResult } from 'express-validator'
 import { Categorias, Precio, Propiedad, Mensaje, Usuario } from '../model/index.js'
-import { esVendedor } from '../helpers/index.js'
+import { esVendedor, formatearFecha } from '../helpers/index.js'
 
 const admin = async (req, res) => {
 
@@ -376,7 +376,8 @@ const verMensajes = async (req, res) => {
 
     res.render('propiedades/mensajes', {
         pagina: 'Mensajes',
-        mensajes: propiedad.mensajes
+        mensajes: propiedad.mensajes,
+        formatearFecha
     })
 }
 
