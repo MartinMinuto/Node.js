@@ -6,12 +6,13 @@
     })
 
     async function cambiarEstadoPropiedad(e) {
-        
+
         const { propiedadId: id } = e.target.dataset
         
         try {
 
             const url = `/propiedades/${id}`
+            
             const respuesta = await fetch(url, {
             method: 'PUT'
             }) 
