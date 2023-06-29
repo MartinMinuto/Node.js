@@ -285,6 +285,10 @@ const eliminar = async (req, res) => {
     res.redirect('/mis-propiedades')
 }
 
+const cambiarEstado = async (req,res) => {
+
+}
+
 const mostrarPropiedad = async (req,res) => {
 
     const {id} = req.params
@@ -392,5 +396,6 @@ export  {
     eliminar,
     mostrarPropiedad,
     enviarMensaje,
-    verMensajes
+    verMensajes,
+    cambiarEstado
 }
