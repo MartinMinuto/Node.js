@@ -319,10 +319,9 @@ const mostrarPropiedad = async (req,res) => {
         ]
     })
 
-    if(!propiedad){
+    if(!propiedad || !propiedad.publicado){
         return res.redirect('/404')
     }
-
 
     res.render('propiedades/mostrar', {
         propiedad,
